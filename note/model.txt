@@ -1,0 +1,59 @@
+Student: 
+    1. _id
+    2. id(genarated)
+    3. password
+    4. name
+    5. gender
+    6. dateOfBirth
+    7. email
+    8. contactNo
+    9. emergencyContectNo
+    10. presentAddress
+    11. premanentAddress
+    12. guardian
+    13. localGuardian
+    14. profileImage
+    15. status
+    16. academicDepartment
+    17. isDeleted
+    18. createdAt
+    19. updatedAt
+
+Faculty: 
+    1. _id
+    2. id(genarated)
+    3. password
+    4. name
+    5. gender
+    6. dateOfBirth
+    7. email
+    8. contactNo
+    9. emergencyContectNo
+    10. presentAddress
+    11. premanentAddress
+    12. profileImage
+    13. status
+    14. academicFaculty
+    15. academicDepartment
+    16. isDeleted
+    17. createdAt
+    18. updatedAt
+
+Admin: 
+    1. _id
+    2. id(genarated)
+    3. password
+    4. name
+    5. gender
+    6. dateOfBirth
+    7. email
+    8. contactNo
+    9. emergencyContectNo
+    10. presentAddress
+    11. premanentAddress
+    12. profileImage
+    13. status
+    14. managementDepartment
+    15. isDeleted
+    16. createdAt
+    17. updatedAt
