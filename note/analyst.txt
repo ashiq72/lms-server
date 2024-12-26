@@ -1,0 +1,47 @@
+PH University
+
+Functional Requirements
+
+1. Authentication
+    a. Student
+        - Student can login and logout security
+        - Student can update their password
+    b. Faculity(Teacher)
+        - Faculity can login and logout security
+        - Faculity can update their password
+    c. Admin
+        - Admin can login and logout security
+        - Admin can update their password
+
+2. Profile Management
+    a. Student
+        - Students can manage and update thier Profile
+        - Students can update certain fields
+    b. Faculity
+        - Faculity can manage and update thier Profile
+        - Faculity can update certain fields
+    c. Admin
+        - Faculity can manage and update thier Profile
+        - Faculity can update certain fields 
+3. Academic Process:
+    a. Student
+        - Student can enroll in offered courses for a specific semester
+        - Students can view their class shedule
+        - Students can see their grades
+        - Students can view notice board and events
+    b. Faculity
+        - Faculity can manage and student grades
+        - Faculity can access students personal and academic information 
+    c. Admin:
+        - Admin can manage multiple process:
+            1. Semister
+            2. Course
+            3. Offered course
+            4. Section
+            5. Room
+            6. Building
+4. User management:
+    a. User management
+        - Admin can manage multiple account
+        - Admin can block/unblock
+        - Admin can change user password
