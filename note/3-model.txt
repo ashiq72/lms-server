@@ -2,6 +2,8 @@ Student:
     1. _id
     2. id(genarated)
     3. password
+    role
+    needPasswordChange
     4. name
     5. gender
     6. dateOfBirth
