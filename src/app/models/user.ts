@@ -1,0 +1,1 @@
+const userSchema = new Schema({});

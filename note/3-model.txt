@@ -1,3 +1,15 @@
+User:
+    1._id
+    2.id (generated)
+    3.password
+    4.needsPasswordChange
+    5.role
+    6.status
+    7.isDeleted
+    8.createdAt
+    9.updatedAt
+
+
 Student: 
     1. _id
     2. id(genarated)
@@ -15,7 +27,6 @@ Student:
     12. guardian
     13. localGuardian
     14. profileImage
-    15. status
     16. academicDepartment
     17. isDeleted
     18. createdAt
@@ -34,7 +45,6 @@ Faculty:
     10. presentAddress
     11. premanentAddress
     12. profileImage
-    13. status
     14. academicFaculty
     15. academicDepartment
     16. isDeleted
@@ -54,7 +64,6 @@ Admin:
     10. presentAddress
     11. premanentAddress
     12. profileImage
-    13. status
     14. managementDepartment
     15. isDeleted
     16. createdAt
