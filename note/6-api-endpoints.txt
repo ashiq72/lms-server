@@ -1,0 +1,33 @@
+user:
+-users/create-student(POST)
+-users/create-faculty(POST)
+-users/create-admin(POST)
+
+student:
+- students(GET)
+- students/:id(GET)
+- students/:id(PATCH)
+- students/:id(DELETE)
+- students/my-profile
+
+
+faculty:
+- faculties(GET)
+- faculties/:id(GET)
+- faculties/:id(PATCH)
+- faculties/:id(DELETE)
+- faculties/my-profile
+
+admin:
+- admins(GET)
+- admins/:id(GET)
+- admins/:id(PATCH)
+- admins/:id(DELETE)
+- admins/my-profile
+
+auth:
+-auth/login
+-auth/refresh-token
+-auth/change-password
+-auth/forget-password
+-auth/reset-password
