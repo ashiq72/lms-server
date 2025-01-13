@@ -20,11 +20,10 @@ const userSchema = new Schema<TUser>(
       enum: ["admin", "student", "faculty"],
       required: true,
     },
-
     status: {
       type: String,
       enum: ["in-progress", "blocked"],
-      // default: "in-progress"
+      default: "in-progress",
     },
     isDeleted: {
       type: Boolean,
