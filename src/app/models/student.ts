@@ -1,11 +1,10 @@
-import { Schema, model, connect } from "mongoose";
+import { Schema, model } from "mongoose";
 import {
   Gurdian,
   localGurdian,
   Student,
   userName,
 } from "../interfaces/student";
-import validator from "validator";
 
 const userNameSchema = new Schema<userName>({
   firstName: {
@@ -13,25 +12,11 @@ const userNameSchema = new Schema<userName>({
     required: [true, "First name is required"],
     maxlength: [20, "More than 20 characters"],
     trim: true,
-    validate: {
-      validator: function (value: String) {
-        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
-        if (value !== firstNameStr) {
-          return false;
-        }
-        return false;
-      },
-      message: "{VALUE} is not ",
-    },
   },
   middleName: { type: "string" },
   lastName: {
     type: "string",
     required: [true, "First name is required"],
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: "{VALUE} is not",
-    },
   },
 });
 
@@ -69,10 +54,6 @@ const studentSchema = new Schema<Student>({
   email: {
     type: String,
     required: true,
-    validate: {
-      validator: (value: string) => validator.isEmail(value),
-      message: "{VALUE} is not valid email",
-    },
   },
   contactNo: { type: "String", required: true },
   emargencyNo: { type: "String", required: true },
