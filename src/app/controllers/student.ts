@@ -10,13 +10,17 @@ const createStudent = async (req: Request, res: Response) => {
 
     const result = await studentServices.createStudentIntoDB(student);
 
-    res.status(200).send({
+    res.status(200).json({
       success: true,
       message: "Student created successfully",
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to create student",
+      error: error,
+    });
   }
 };
 

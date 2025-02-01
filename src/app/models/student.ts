@@ -9,9 +9,22 @@ import {
 const userNameSchema = new Schema<userName>({
   firstName: {
     type: String,
+
+    // It's build-in validator by mongoose
     required: [true, "First name is required"],
     maxlength: [20, "More than 20 characters"],
     trim: true,
+
+    // It's custom validator
+
+    // validate: {
+    //   validator: function (value: string) {
+    //     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
+    //     return firstNameStr === value;
+    //   },
+    //   message:
+    //     "Invalid input, name should not contain special characters or numbers",
+    // },
   },
   middleName: { type: "string" },
   lastName: {
