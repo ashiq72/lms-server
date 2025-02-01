@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import validator from "validator";
 import {
   Gurdian,
   localGurdian,
@@ -24,6 +25,12 @@ const userNameSchema = new Schema<userName>({
     //   },
     //   message:
     //     "Invalid input, name should not contain special characters or numbers",
+    // },
+
+    // It's Third party validation using the validator
+    // validate: {
+    //   validator: (value: string) => validator.isAlpha(value),
+    //   message: "Invalid input, name should only contain alphabet characters",
     // },
   },
   middleName: { type: "string" },
