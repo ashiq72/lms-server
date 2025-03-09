@@ -15,28 +15,17 @@ const userNameSchema = new Schema<userName>({
     required: [true, "First name is required"],
     maxlength: [20, "More than 20 characters"],
     trim: true,
-
-    // It's custom validator
-
-    // validate: {
-    //   validator: function (value: string) {
-    //     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
-    //     return firstNameStr === value;
-    //   },
-    //   message:
-    //     "Invalid input, name should not contain special characters or numbers",
-    // },
-
-    // It's Third party validation using the validator
-    // validate: {
-    //   validator: (value: string) => validator.isAlpha(value),
-    //   message: "Invalid input, name should only contain alphabet characters",
-    // },
   },
   middleName: { type: "string" },
   lastName: {
     type: "string",
     required: [true, "First name is required"],
+
+    // It's Third party validation using the validator
+    validate: {
+      validator: (value: string) => validator.isAlpha(value),
+      message: "Invalid input, name should only contain alphabet characters",
+    },
   },
 });
 
@@ -74,6 +63,10 @@ const studentSchema = new Schema<Student>({
   email: {
     type: String,
     required: true,
+    validate: {
+      validator: (value: string) => validator.isEmail(value),
+      message: "{VALUE} Invalid email",
+    },
   },
   contactNo: { type: "String", required: true },
   emargencyNo: { type: "String", required: true },
@@ -97,3 +90,29 @@ const studentSchema = new Schema<Student>({
 });
 
 export const StudentModel = model<Student>("Student", studentSchema);
+
+// firstName: {
+//   type: String,
+
+// It's build-in validator by mongoose
+// required: [true, "First name is required"],
+// maxlength: [20, "More than 20 characters"],
+// trim: true,
+
+// It's custom validator
+
+// validate: {
+//   validator: function (value: string) {
+//     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
+//     return firstNameStr === value;
+//   },
+//   message:
+//     "Invalid input, name should not contain special characters or numbers",
+// },
+
+// It's Third party validation using the validator
+// validate: {
+//   validator: (value: string) => validator.isAlpha(value),
+//   message: "Invalid input, name should only contain alphabet characters",
+// },
+// },
