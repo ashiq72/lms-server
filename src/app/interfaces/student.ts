@@ -1,5 +1,13 @@
+import { Model } from "mongoose";
+
 // 1. Create an interface representing a document in MongoDB.
-export type Gurdian = {
+export type TUserName = {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+};
+
+export type TGurdian = {
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: string;
@@ -8,22 +16,16 @@ export type Gurdian = {
   motherContactNo: string;
 };
 
-export type userName = {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-};
-
-export type localGurdian = {
+export type TLocalGurdian = {
   name: string;
   occupation: string;
   contactNo: string;
   Address: string;
 };
 
-export type Student = {
+export type TStudent = {
   id: string;
-  name: userName;
+  name: TUserName;
   gender: "male" | "female";
   dateOfBirth?: String;
   email: string;
@@ -32,8 +34,26 @@ export type Student = {
   bloodGroup?: "A+" | "A-" | "B"; // ? mane optional
   presentAddress: string;
   permanentAddress: string;
-  gurdian: Gurdian;
-  localGurdian: localGurdian;
+  gurdian: TGurdian;
+  localGurdian: TLocalGurdian;
   profileImage?: string;
   isActive: "active" | "blocked";
 };
+
+// For creating Staic
+
+export interface StudentModel extends Model<TStudent> {
+  isUserExists(id: string): Promise<TStudent | null>;
+}
+
+// For creating instance
+
+// export type StudentMethods = {
+//   isUserExists(id: string): Promise<TStudent | null>;
+// };
+
+// export type StudentModel = Model<
+//   TStudent,
+//   Record<string, never>,
+//   StudentMethods
+// >;

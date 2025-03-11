@@ -1,13 +1,13 @@
 import { Schema, model } from "mongoose";
 import validator from "validator";
 import {
-  Gurdian,
-  localGurdian,
-  Student,
-  userName,
+  TGurdian,
+  TLocalGurdian,
+  TStudent,
+  TUserName,
 } from "../interfaces/student";
 
-const userNameSchema = new Schema<userName>({
+const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
 
@@ -15,32 +15,21 @@ const userNameSchema = new Schema<userName>({
     required: [true, "First name is required"],
     maxlength: [20, "More than 20 characters"],
     trim: true,
-
-    // It's custom validator
-
-    // validate: {
-    //   validator: function (value: string) {
-    //     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
-    //     return firstNameStr === value;
-    //   },
-    //   message:
-    //     "Invalid input, name should not contain special characters or numbers",
-    // },
-
-    // It's Third party validation using the validator
-    // validate: {
-    //   validator: (value: string) => validator.isAlpha(value),
-    //   message: "Invalid input, name should only contain alphabet characters",
-    // },
   },
   middleName: { type: "string" },
   lastName: {
     type: "string",
     required: [true, "First name is required"],
+
+    // It's Third party validation using the validator
+    validate: {
+      validator: (value: string) => validator.isAlpha(value),
+      message: "Invalid input, name should only contain alphabet characters",
+    },
   },
 });
 
-const gurdianSchema = new Schema<Gurdian>({
+const gurdianSchema = new Schema<TGurdian>({
   fatherName: { type: String, required: true },
   fatherOccupation: { type: String, required: true },
   fatherContactNo: { type: String, required: true },
@@ -49,14 +38,14 @@ const gurdianSchema = new Schema<Gurdian>({
   motherContactNo: { type: String, required: true },
 });
 
-const localGurdianSchemas = new Schema<localGurdian>({
+const localGurdianSchemas = new Schema<TLocalGurdian>({
   name: { type: String, required: true },
   occupation: { type: String, required: true },
   contactNo: { type: String, required: true },
   Address: { type: String, required: true },
 });
 
-const studentSchema = new Schema<Student>({
+const studentSchema = new Schema<TStudent>({
   id: { type: "string", required: true, unique: true },
   name: {
     type: userNameSchema,
@@ -74,6 +63,10 @@ const studentSchema = new Schema<Student>({
   email: {
     type: String,
     required: true,
+    validate: {
+      validator: (value: string) => validator.isEmail(value),
+      message: "{VALUE} Invalid email",
+    },
   },
   contactNo: { type: "String", required: true },
   emargencyNo: { type: "String", required: true },
@@ -96,4 +89,30 @@ const studentSchema = new Schema<Student>({
   },
 });
 
-export const StudentModel = model<Student>("Student", studentSchema);
+export const StudentModel = model<TStudent>("Student", studentSchema);
+
+// firstName: {
+//   type: String,
+
+// It's build-in validator by mongoose
+// required: [true, "First name is required"],
+// maxlength: [20, "More than 20 characters"],
+// trim: true,
+
+// It's custom validator
+
+// validate: {
+//   validator: function (value: string) {
+//     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
+//     return firstNameStr === value;
+//   },
+//   message:
+//     "Invalid input, name should not contain special characters or numbers",
+// },
+
+// It's Third party validation using the validator
+// validate: {
+//   validator: (value: string) => validator.isAlpha(value),
+//   message: "Invalid input, name should only contain alphabet characters",
+// },
+// },
