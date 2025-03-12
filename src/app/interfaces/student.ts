@@ -7,7 +7,7 @@ export type TUserName = {
   lastName: string;
 };
 
-export type TGurdian = {
+export type TGuardian = {
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: string;
@@ -16,29 +16,37 @@ export type TGurdian = {
   motherContactNo: string;
 };
 
-export type TLocalGurdian = {
+export type TLocalGuardian = {
   name: string;
   occupation: string;
   contactNo: string;
-  Address: string;
+  address: string;
 };
 
 export type TStudent = {
   id: string;
+  password: string;
   name: TUserName;
-  gender: "male" | "female";
-  dateOfBirth?: String;
+  gender: "male" | "female" | "other";
+  dateOfBirth?: string;
   email: string;
   contactNo: string;
-  emargencyNo: string;
-  bloodGroup?: "A+" | "A-" | "B"; // ? mane optional
+  emergencyContactNo: string;
+  bloodGroup?: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
   presentAddress: string;
   permanentAddress: string;
-  gurdian: TGurdian;
-  localGurdian: TLocalGurdian;
-  profileImage?: string;
+  guardian: TGuardian;
+  localGuardian: TLocalGuardian;
+  profileImg?: string;
   isActive: "active" | "blocked";
+  isDeleted: boolean;
 };
+
+//for creating static
+
+export interface StudentModel extends Model<TStudent> {
+  isUserExists(id: string): Promise<TStudent | null>;
+}
 
 // For creating Staic
 

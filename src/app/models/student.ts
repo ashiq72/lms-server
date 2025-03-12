@@ -1,95 +1,155 @@
 import { Schema, model } from "mongoose";
 import validator from "validator";
 import {
-  TGurdian,
-  TLocalGurdian,
+  StudentModel,
+  TGuardian,
+  TLocalGuardian,
   TStudent,
   TUserName,
 } from "../interfaces/student";
-
 const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
-
-    // It's build-in validator by mongoose
-    required: [true, "First name is required"],
-    maxlength: [20, "More than 20 characters"],
+    required: [true, "First Name is required"],
+    trim: true,
+    maxlength: [20, "Name can not be more than 20 characters"],
+  },
+  middleName: {
+    type: String,
     trim: true,
   },
-  middleName: { type: "string" },
   lastName: {
-    type: "string",
-    required: [true, "First name is required"],
-
-    // It's Third party validation using the validator
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: "Invalid input, name should only contain alphabet characters",
-    },
+    type: String,
+    trim: true,
+    required: [true, "Last Name is required"],
+    maxlength: [20, "Name can not be more than 20 characters"],
   },
 });
 
-const gurdianSchema = new Schema<TGurdian>({
-  fatherName: { type: String, required: true },
-  fatherOccupation: { type: String, required: true },
-  fatherContactNo: { type: String, required: true },
-  motherName: { type: String, required: true },
-  motherOccupation: { type: String, required: true },
-  motherContactNo: { type: String, required: true },
+const guardianSchema = new Schema<TGuardian>({
+  fatherName: {
+    type: String,
+    trim: true,
+    required: [true, "Father Name is required"],
+  },
+  fatherOccupation: {
+    type: String,
+    trim: true,
+    required: [true, "Father occupation is required"],
+  },
+  fatherContactNo: {
+    type: String,
+    required: [true, "Father Contact No is required"],
+  },
+  motherName: {
+    type: String,
+    required: [true, "Mother Name is required"],
+  },
+  motherOccupation: {
+    type: String,
+    required: [true, "Mother occupation is required"],
+  },
+  motherContactNo: {
+    type: String,
+    required: [true, "Mother Contact No is required"],
+  },
 });
 
-const localGurdianSchemas = new Schema<TLocalGurdian>({
-  name: { type: String, required: true },
-  occupation: { type: String, required: true },
-  contactNo: { type: String, required: true },
-  Address: { type: String, required: true },
-});
-
-const studentSchema = new Schema<TStudent>({
-  id: { type: "string", required: true, unique: true },
+const localGuradianSchema = new Schema<TLocalGuardian>({
   name: {
-    type: userNameSchema,
-    required: true,
-  },
-  gender: {
     type: String,
-    enum: {
-      values: ["male", "female", "other"],
-      message: "{VALUE} is not valid",
-    },
-    required: true,
+    required: [true, "Name is required"],
   },
-  dateOfBirth: { type: "String" },
-  email: {
+  occupation: {
     type: String,
-    required: true,
-    validate: {
-      validator: (value: string) => validator.isEmail(value),
-      message: "{VALUE} Invalid email",
-    },
+    required: [true, "Occupation is required"],
   },
-  contactNo: { type: "String", required: true },
-  emargencyNo: { type: "String", required: true },
-  bloodGroup: {
+  contactNo: {
     type: String,
-    enum: ["A+", "A-", "B"],
+    required: [true, "Contact number is required"],
   },
-  presentAddress: { type: "String", required: true },
-  permanentAddress: { type: "String", required: true },
-  gurdian: {
-    type: gurdianSchema,
-    required: true,
-  },
-  localGurdian: { type: localGurdianSchemas, required: true },
-  profileImage: { type: String },
-  isActive: {
+  address: {
     type: String,
-    enum: ["active", "blocked"],
-    default: "active",
+    required: [true, "Address is required"],
   },
 });
 
-export const StudentModel = model<TStudent>("Student", studentSchema);
+const studentSchema = new Schema<TStudent, StudentModel>(
+  {
+    id: { type: String, required: [true, "ID is required"], unique: true },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      maxlength: [20, "Password can not be more than 20 characters"],
+    },
+    name: {
+      type: userNameSchema,
+      required: [true, "Name is required"],
+    },
+    gender: {
+      type: String,
+      enum: {
+        values: ["male", "female", "other"],
+        message: "{VALUE} is not a valid gender",
+      },
+      required: [true, "Gender is required"],
+    },
+    dateOfBirth: { type: String },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+    },
+    contactNo: { type: String, required: [true, "Contact number is required"] },
+    emergencyContactNo: {
+      type: String,
+      required: [true, "Emergency contact number is required"],
+    },
+    bloodGroup: {
+      type: String,
+      enum: {
+        values: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+        message: "{VALUE} is not a valid blood group",
+      },
+    },
+    presentAddress: {
+      type: String,
+      required: [true, "Present address is required"],
+    },
+    permanentAddress: {
+      type: String,
+      required: [true, "Permanent address is required"],
+    },
+    guardian: {
+      type: guardianSchema,
+      required: [true, "Guardian information is required"],
+    },
+    localGuardian: {
+      type: localGuradianSchema,
+      required: [true, "Local guardian information is required"],
+    },
+    profileImg: { type: String },
+    isActive: {
+      type: String,
+      enum: {
+        values: ["active", "blocked"],
+        message: "{VALUE} is not a valid status",
+      },
+      default: "active",
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
+);
+
+export const Student = model<TStudent, StudentModel>("Student", studentSchema);
 
 // firstName: {
 //   type: String,
