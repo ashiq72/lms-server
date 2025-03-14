@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { Request, Response } from "express";
 import { studentServices } from "../services/student";
 import studentValidationSchema from "../zod/student.validation";
@@ -5,14 +6,13 @@ import studentValidationSchema from "../zod/student.validation";
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-    // will call service function to send this data
     const { student: studentData } = req.body;
 
     // Creating a schema validation using Zod
-
     const zodparsedData = studentValidationSchema.parse(studentData);
+    console.log(zodparsedData);
 
-    const result = await studentServices.createStudentIntoDB(studentData);
+    const result = await studentServices.createStudentIntoDB(zodparsedData);
 
     // Creating a schema validation using joi
 

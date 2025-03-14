@@ -3,7 +3,7 @@ import { Model } from "mongoose";
 // 1. Create an interface representing a document in MongoDB.
 export type TUserName = {
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
 };
 
@@ -49,10 +49,6 @@ export interface StudentModel extends Model<TStudent> {
 }
 
 // For creating Staic
-
-export interface StudentModel extends Model<TStudent> {
-  isUserExists(id: string): Promise<TStudent | null>;
-}
 
 // For creating instance
 

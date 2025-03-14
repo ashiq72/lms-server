@@ -5,6 +5,7 @@ const app = express();
 
 // parsers
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //applications routes
