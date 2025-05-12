@@ -32,6 +32,7 @@ const createStudentIntoDB = async (password: string, studentData: TStudent) => {
     // const studentResult = await result.createStudent(student);
   } catch (error: any) {
     console.log(error);
+    throw error;
   }
 };
 

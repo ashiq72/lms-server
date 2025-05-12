@@ -1,5 +1,3 @@
-
-
 {
   "password": "ami123",
   "student":

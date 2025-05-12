@@ -20,11 +20,6 @@ const createStudent = async (
       data: result,
     });
   } catch (err) {
-    // res.status(500).json({
-    //   success: false,
-    //   message: error.message || "Failed to create student",
-    //   error: "Failed",
-    // });
     next(err);
   }
 };
