@@ -1,4 +1,3 @@
-import { TStudent } from "../interfaces/student";
 import { Student } from "../models/student";
 
 const getAllStudentsFormDB = async () => {

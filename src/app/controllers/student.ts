@@ -1,10 +1,11 @@
-import { z } from "zod";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { studentServices } from "../services/student";
-import studentValidationSchema from "../zod/student.validation";
-// import studentValidationSchema from "../joi/student.validation";
 
-const getAllStudents = async (req: Request, res: Response) => {
+const getAllStudents = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const result = await studentServices.getAllStudentsFormDB();
 
@@ -14,11 +15,15 @@ const getAllStudents = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const getSingleStudent = async (req: Request, res: Response) => {
+const getSingleStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { studentId } = req.params;
     const result = await studentServices.getSingleStudentFromDB(studentId);
@@ -28,12 +33,13 @@ const getSingleStudent = async (req: Request, res: Response) => {
       message: "Single Student fatched successfully",
       data: result,
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error from get single data",
-      error: error,
-    });
+  } catch (err) {
+    // res.status(500).json({
+    //   success: false,
+    //   message: "Error from get single data",
+    //   error: error,
+    // });
+    next(err);
   }
 };
 
