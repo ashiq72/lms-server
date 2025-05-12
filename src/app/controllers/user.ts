@@ -1,10 +1,11 @@
-import { userServices } from "../services/user";
+import { Request, Response } from "express";
+import { UserServices } from "../services/user";
 
 const createStudent = async (req: Request, res: Response) => {
   try {
     const { password, student: studentData } = req.body;
 
-    const result = await userServices.createStudentIntoDB(
+    const result = await UserServices.createStudentIntoDB(
       password,
       studentData
     );
@@ -21,4 +22,8 @@ const createStudent = async (req: Request, res: Response) => {
       error: "Failed",
     });
   }
+};
+
+export const UserController = {
+  createStudent,
 };
