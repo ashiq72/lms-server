@@ -1,0 +1,40 @@
+
+
+{
+  "password": "ami123",
+  "student":
+  {
+  "id": "12345",
+  "password": "securePass123",
+  "name": {
+    "firstName": "John",
+    "middleName": "Michael",
+    "lastName": "Doe"
+  },
+  "gender": "male",
+  "dateOfBirth": "2000-05-15",
+  "email": "doe@gmail.com",
+  "contactNo": "+1234567890",
+  "emergencyContactNo": "+0987654321",
+  "bloodGroup": "O+",
+  "presentAddress": "123 Main Street, City, Country",
+  "permanentAddress": "456 Another Street, City, Country",
+  "guardian": {
+    "fatherName": "James Doe",
+    "fatherOccupation": "Engineer",
+    "fatherContactNo": "+1122334455",
+    "motherName": "Jane Doe",
+    "motherOccupation": "Doctor",
+    "motherContactNo": "+5566778899"
+  },
+  "localGuardian": {
+    "name": "Robert Smith",
+    "occupation": "Teacher",
+    "contactNo": "+6677889900",
+    "address": "789 Guardian Lane, City, Country"
+  },
+  "profileImg": "https://example.com/profile.jpg",
+  "isActive": "active",
+  "isDeleted": false
+}
+}
