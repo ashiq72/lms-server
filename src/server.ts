@@ -6,7 +6,7 @@ const PORT = 4000;
 
 async function connectDB() {
   try {
-    await mongoose.connect(config.database_url as string); // eta keno
+    await mongoose.connect(config.database_url as string);
     app.listen(PORT, () =>
       console.log(`Server is running http://localhost:${PORT}`)
     );

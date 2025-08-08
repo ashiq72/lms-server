@@ -3,6 +3,7 @@ import { TStudent } from "../interfaces/student";
 import { NewUser } from "../interfaces/user";
 import { Student } from "../models/student";
 import { User } from "../models/user";
+import { v4 as uuidv4 } from "uuid";
 
 const createStudentIntoDB = async (password: string, studentData: TStudent) => {
   try {
@@ -12,7 +13,7 @@ const createStudentIntoDB = async (password: string, studentData: TStudent) => {
       password: password || (config.default_password as string),
       role: "student",
       // manually create a user id
-      id: "errwkop453",
+      id: uuidv4(), // ✅ generates a unique ID like "a1b2c3d4-e5f6-..."
     };
 
     // Create a user
