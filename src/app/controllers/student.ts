@@ -1,10 +1,10 @@
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { studentServices } from "../services/student";
+import { StudentServices } from "../services/student";
 import httpStatus from "http-status";
 
 const getAllStudents = catchAsync(async (req, res) => {
-  const result = await studentServices.getAllStudentsFormDB();
+  const result = await StudentServices.getAllStudentsFromDB();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -16,7 +16,7 @@ const getAllStudents = catchAsync(async (req, res) => {
 
 const getSingleStudent = catchAsync(async (req, res) => {
   const { studentId } = req.params;
-  const result = await studentServices.getSingleStudentFromDB(studentId);
+  const result = await StudentServices.getSingleStudentFromDB(studentId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -25,8 +25,19 @@ const getSingleStudent = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const deleteStudent = catchAsync(async (req, res) => {
+  const { studentId } = req.params;
+  const result = await StudentServices.deleteStudentFromDB(studentId);
 
-export const studentControllers = {
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Student is deleted succesfully",
+    data: result,
+  });
+});
+export const StudentControllers = {
   getAllStudents,
   getSingleStudent,
+  deleteStudent,
 };
