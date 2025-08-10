@@ -1,34 +1,30 @@
-import { NextFunction, Request, RequestHandler, Response } from "express";
+import catchAsync from "../../utils/catchAsync";
+import sendResponse from "../../utils/sendResponse";
 import { studentServices } from "../services/student";
+import httpStatus from "http-status";
 
-const getAllStudents: RequestHandler = async (req, res, next) => {
-  try {
-    const result = await studentServices.getAllStudentsFormDB();
+const getAllStudents = catchAsync(async (req, res) => {
+  const result = await studentServices.getAllStudentsFormDB();
 
-    res.status(200).json({
-      success: true,
-      message: "Students fetched successfully",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Student are retrieved succesfully",
+    data: result,
+  });
+});
 
-const getSingleStudent: RequestHandler = async (req, res, next) => {
-  try {
-    const { studentId } = req.params;
-    const result = await studentServices.getSingleStudentFromDB(studentId);
+const getSingleStudent = catchAsync(async (req, res) => {
+  const { studentId } = req.params;
+  const result = await studentServices.getSingleStudentFromDB(studentId);
 
-    res.status(200).json({
-      sucess: true,
-      message: "Single Student fatched successfully",
-      data: result,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Student are retrieved sucessfully",
+    data: result,
+  });
+});
 
 export const studentControllers = {
   getAllStudents,
