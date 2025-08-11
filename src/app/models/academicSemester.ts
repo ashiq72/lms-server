@@ -32,7 +32,7 @@ const academicSemesterSchema = new Schema<TAcademicSemester>(
       required: true,
     },
     year: {
-      type: Date,
+      type: String,
       required: true,
     },
     code: {
