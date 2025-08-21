@@ -8,4 +8,3 @@ router.get("/", StudentControllers.getAllStudents);
 router.get("/:id", StudentControllers.getSingleStudent);
 
 export const StudentRoutes = router;
-export const CourseRoutes = router;
