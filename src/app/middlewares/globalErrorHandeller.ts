@@ -5,7 +5,7 @@ import config from "../../config";
 import { handleZodError } from "../error/handleZodError";
 import handleValidationError from "../error/handleValidationError";
 import handleCastError from "../error/handleCastError";
-import handleDuplicateError from "../error/handleDuplicate";
+import handleDuplicateError from "../error/handleDuplicateError";
 
 const globalErrorHandler = (
   err: any,
