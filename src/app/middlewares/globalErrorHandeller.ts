@@ -6,6 +6,7 @@ import { handleZodError } from "../error/handleZodError";
 import handleValidationError from "../error/handleValidationError";
 import handleCastError from "../error/handleCastError";
 import handleDuplicateError from "../error/handleDuplicateError";
+import AppError from "../error/AppError";
 
 const globalErrorHandler = (
   err: any,
@@ -13,8 +14,8 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  let statusCode = err.statusCode || 500;
-  let message = err.message || "Internal Server Error";
+  let statusCode = 500;
+  let message = "Internal Server Error";
 
   let errorSources: TErrorSources = [
     {
@@ -43,6 +44,15 @@ const globalErrorHandler = (
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
+  } else if (err instanceof AppError) {
+    statusCode = err?.statusCode;
+    message = err.message;
+    errorSources = [
+      {
+        path: "",
+        message: err?.message,
+      },
+    ];
   }
 
   res.status(statusCode).json({
