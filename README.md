@@ -9,5 +9,3 @@
 - Builtin validation
 - Custom validation
 - Third party validation libraries ( Validator / Zod / Joi)
-  <br>
-  -
