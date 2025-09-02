@@ -4,18 +4,18 @@ Functional Requirements
 
 1. Authentication
     a. Student
-        - Student can login and logout security
+        - Student can login and logout securely
         - Student can update their password
     b. Faculity(Teacher)
-        - Faculity can login and logout security
+        - Faculity can login and logout securely
         - Faculity can update their password
     c. Admin
-        - Admin can login and logout security
+        - Admin can login and logout securely
         - Admin can update their password
 
 2. Profile Management
     a. Student
-        - Students can manage and update thier Profile
+        - Students can manage and update thier profile
         - Students can update certain fields
     b. Faculity
         - Faculity can manage and update thier Profile
