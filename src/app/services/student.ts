@@ -8,16 +8,18 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   console.log(query);
 
   let searchterm = "";
-
+  const studentSearchAbleField = ["email", "name.firstName"];
   if (query.searchterm) {
     searchterm = query?.searchterm as string;
   }
 
-  const result = await Student.find({
-    $or: ["email"].map((field) => ({
+  const serachQuery = Student.find({
+    $or: studentSearchAbleField.map((field) => ({
       [field]: { $regex: searchterm, $options: "i" },
     })),
   });
+
+  const result = await serachQuery;
   // .populate("admissionSemester")
   // .populate({
   //   path: "academicDepartment",
