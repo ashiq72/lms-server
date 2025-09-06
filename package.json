@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc && cp dist/server.js api/server.js"
+    "build": "tsc && cp dist/server.js api/server.js",
+    "lint": "npx eslint ."
   },
   "author": "",
   "license": "ISC",

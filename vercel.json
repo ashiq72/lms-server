@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "functions": {
-    "api/server.js": {
-      "runtime": "nodejs20.x"
+  "builds": [
+    {
+      "src": "dist/server.js",
+      "use": "@vercel/node"
     }
-  },
-  "routes": [{ "src": "/(.*)", "dest": "/api/server.js" }]
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "dist/server.js" }]
 }
