@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const user_1 = require("../app/routes/user");
+const student_1 = require("../app/routes/student");
+const academicSemester_1 = require("../app/routes/academicSemester");
+const acdemicFaculty_1 = require("../app/routes/acdemicFaculty");
+const router = (0, express_1.Router)();
+router.use("/users", user_1.UserRouter);
+router.use("/students", student_1.StudentRoutes);
+router.use("/academic-semester", academicSemester_1.AcademicSemesterRoutes);
+router.use("/academic-faculty", acdemicFaculty_1.AcademicFacultyRoutes);
+exports.default = router;

@@ -10,8 +10,6 @@ lerna-debug.log*
 # Keep node_modules in Git
 node_modules/
 
-dist
-dist-ssr
 *.local
 # .env
 
