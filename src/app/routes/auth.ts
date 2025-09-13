@@ -5,10 +5,6 @@ import { AuthControllers } from "../controllers/auth";
 
 const router = express.Router();
 
-router.post(
-  "/login",
-  validateRequest(AuthValidation.loginValidationSchema),
-  AuthControllers.loginUser
-);
+router.post("/login", AuthControllers.loginUser);
 
 export const AuthRoutes = router;

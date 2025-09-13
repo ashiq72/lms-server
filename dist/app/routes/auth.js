@@ -3,11 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRouter = void 0;
+exports.AuthRoutes = void 0;
 const express_1 = __importDefault(require("express"));
-const user_1 = require("../controllers/user");
+const auth_1 = require("../controllers/auth");
 const router = express_1.default.Router();
-router.post("/create-studen", 
-// validateRequest(createStudentValidationSchema),
-user_1.UserController.createStudent);
-exports.UserRouter = router;
+console.log("dsf");
+router.post("/login", auth_1.AuthControllers.loginUser);
+// router.post(
+//   "/login",
+//   UserController.createStudent
+// );
+exports.AuthRoutes = router;
