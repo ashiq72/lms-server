@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import catchAsync from "../../utils/catchAsync";
 import AppError from "../error/AppError";
 import config from "../../config";
@@ -23,7 +23,10 @@ const auth = () => {
             "You are not authorized!"
           );
         }
-        // decoded undefined
+        // decoded
+
+        req.user = decoded as JwtPayload;
+        next();
       }
     );
   });
