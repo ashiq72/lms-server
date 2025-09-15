@@ -6,7 +6,7 @@ import { TUser } from "../interfaces/user";
 import { AcademicSemester } from "../models/academicSemester";
 import { Student } from "../models/student";
 import { User } from "../models/user";
-import { generateStudentId } from "./user.utils";
+import { generateStudentId } from "../modules/user/user.utils";
 import AppError from "../error/AppError";
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {

@@ -3,11 +3,11 @@ import httpStatus from "http-status";
 import config from "../../../config";
 import { TStudent } from "../student/student.interface";
 import { TUser } from "./user.interface";
-import { AcademicSemester } from "../models/academicSemester";
-import { Student } from "../models/student";
-import { User } from "../models/user";
+import { AcademicSemester } from "../academicSemester/academicSemister.model";
+import { Student } from "../student/student.model";
+import { User } from "./user.model";
 import { generateStudentId } from "./user.utils";
-import AppError from "../error/AppError";
+import AppError from "../../error/AppError";
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // create a user object
