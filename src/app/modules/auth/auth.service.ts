@@ -1,9 +1,9 @@
 import httpStatus from "http-status";
-import AppError from "../error/AppError";
-import { TLoginUser } from "../interfaces/auth";
-import { User } from "../models/user";
+import AppError from "../../error/AppError";
+import { TLoginUser } from "./auth.interface";
+import { User } from "../user/user.model";
 import jwt from "jsonwebtoken";
-import config from "../../config";
+import config from "../../../config";
 
 const loginUser = async (playload: TLoginUser) => {
   const user = await User.isUserExistsByCustomId(playload.id);
