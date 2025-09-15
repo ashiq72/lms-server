@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/mongoose": "^5.11.96",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
@@ -20,6 +21,7 @@
     "express": "^4.21.2",
     "http-status": "^2.1.0",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
