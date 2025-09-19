@@ -36,7 +36,7 @@ const loginUser = async (playload: TLoginUser) => {
     jwtPlayload,
     config.jwt_access_secret as string,
     {
-      expiresIn: 60 * 60,
+      expiresIn: "10d",
     }
   );
 
