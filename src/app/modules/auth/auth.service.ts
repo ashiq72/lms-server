@@ -6,47 +6,47 @@ import jwt from "jsonwebtoken";
 import config from "../../../config";
 
 const loginUser = async (playload: TLoginUser) => {
-  const isUserExists = await User.isUserExistsByCustomId(playload.id);
+  const user = await User.isUserExistsByCustomId(playload.id);
 
   // Checking if the user exist
-  if (!isUserExists) {
+  if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is not found!");
   }
 
   // Checking if the user is deleted
-  const isDeleted = isUserExists?.isDeleted;
+  const isDeleted = user?.isDeleted;
   if (isDeleted) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is deleted!");
   }
 
   // Checking if the user is blocked
-  const userStatus = isUserExists?.status;
+  const userStatus = user?.status;
   if (userStatus === "blocked") {
     throw new AppError(httpStatus.FORBIDDEN, "This user is block!");
   }
 
   // Access granted: Send AccessToken, Refresh token
 
-  // if (!(await User.isPasswordMatched(playload?.password, user?.password)))
-  //   throw new AppError(httpStatus.FORBIDDEN, "Password do not match!");
+  if (!(await User.isPasswordMatched(playload?.password, user?.password)))
+    throw new AppError(httpStatus.FORBIDDEN, "Password do not match!");
 
-  // const jwtPlayload = {
-  //   userId: user.id,
-  //   role: user.role,
-  // };
-  // const accessToken = jwt.sign(
-  //   jwtPlayload,
-  //   config.jwt_access_secret as string,
-  //   {
-  //     expiresIn: "10d",
-  //   }
-  // );
+  const jwtPlayload = {
+    userId: user.id,
+    role: user.role,
+  };
+  const accessToken = jwt.sign(
+    jwtPlayload,
+    config.jwt_access_secret as string,
+    {
+      expiresIn: "10d",
+    }
+  );
 
   // Create token
-  // return {
-  //   accessToken,
-  //   needsPasswordChange: user?.needsPasswordChange,
-  // };
+  return {
+    accessToken,
+    needsPasswordChange: user?.needsPasswordChange,
+  };
 };
 
 export const AuthServices = {
