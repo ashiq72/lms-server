@@ -8,22 +8,24 @@ import config from "../../../config";
 const loginUser = async (playload: TLoginUser) => {
   const isUserExists = await User.isUserExistsByCustomId(playload.id);
 
+  // Checking if the user exist
   if (!isUserExists) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is not found!");
   }
 
+  // Checking if the user is deleted
   const isDeleted = isUserExists?.isDeleted;
-
   if (isDeleted) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is deleted!");
   }
 
+  // Checking if the user is blocked
   const userStatus = isUserExists?.status;
-  console.log(userStatus);
-
   if (userStatus === "blocked") {
-    throw new AppError(httpStatus.NOT_FOUND, "This user is block!");
+    throw new AppError(httpStatus.FORBIDDEN, "This user is block!");
   }
+
+  // Access granted: Send AccessToken, Refresh token
 
   // if (!(await User.isPasswordMatched(playload?.password, user?.password)))
   //   throw new AppError(httpStatus.FORBIDDEN, "Password do not match!");
