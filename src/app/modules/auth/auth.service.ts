@@ -18,8 +18,8 @@ const loginUser = async (playload: TLoginUser) => {
     throw new AppError(httpStatus.NOT_FOUND, "This user is deleted!");
   }
 
-  // const userStatus = isUserExists?.status;
-  // console.log(userStatus);
+  const userStatus = isUserExists?.status;
+  console.log(userStatus);
 
   // if (userStatus === "blocked") {
   //   throw new AppError(httpStatus.NOT_FOUND, "This user is block!");
