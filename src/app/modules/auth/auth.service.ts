@@ -6,19 +6,17 @@ import jwt from "jsonwebtoken";
 import config from "../../../config";
 
 const loginUser = async (playload: TLoginUser) => {
-  console.log(playload);
+  const isUserExists = await User.isUserExistsByCustomId(playload.id);
 
-  // const user = await User.isUserExistsByCustomId(playload.id);
+  if (!isUserExists) {
+    throw new AppError(httpStatus.NOT_FOUND, "This user is not found!");
+  }
 
-  // if (!user) {
-  //   throw new AppError(httpStatus.NOT_FOUND, "This user is not found!");
-  // }
+  const isDeleted = isUserExists?.isDeleted;
 
-  // const isDeleted = isUserExists?.isDeleted;
-
-  // if (isDeleted) {
-  //   throw new AppError(httpStatus.NOT_FOUND, "This user is deleted!");
-  // }
+  if (isDeleted) {
+    throw new AppError(httpStatus.NOT_FOUND, "This user is deleted!");
+  }
 
   // const userStatus = isUserExists?.status;
   // console.log(userStatus);
