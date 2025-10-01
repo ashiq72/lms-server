@@ -21,9 +21,9 @@ const loginUser = async (playload: TLoginUser) => {
   const userStatus = isUserExists?.status;
   console.log(userStatus);
 
-  // if (userStatus === "blocked") {
-  //   throw new AppError(httpStatus.NOT_FOUND, "This user is block!");
-  // }
+  if (userStatus === "blocked") {
+    throw new AppError(httpStatus.NOT_FOUND, "This user is block!");
+  }
 
   // if (!(await User.isPasswordMatched(playload?.password, user?.password)))
   //   throw new AppError(httpStatus.FORBIDDEN, "Password do not match!");
