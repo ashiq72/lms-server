@@ -10,9 +10,12 @@ const auth = (...requiredRoles: TuserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
+    // if the token is sent from the client
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!");
     }
+
+    // check if the varify token
     jwt.verify(
       token,
       config.jwt_access_secret as string,
@@ -24,8 +27,14 @@ const auth = (...requiredRoles: TuserRole[]) => {
             "You are not authorized!"
           );
         }
-        // decoded
 
+        // if (requiredRoles && !requiredRoles.includes(role)) {
+        //   throw new AppError(
+        //     httpStatus.UNAUTHORIZED,
+        //     "You are not authorized  hi!"
+        //   );
+        // }
+        // decoded
         req.user = decoded as JwtPayload;
         next();
       }

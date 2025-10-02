@@ -5,8 +5,6 @@ import AppError from "../../error/AppError";
 import { User } from "../user/user.model";
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
-  console.log(query);
-
   let searchterm = "";
   const studentSearchAbleField = ["email", "name.firstName"];
   if (query.searchterm) {
