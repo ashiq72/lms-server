@@ -17,8 +17,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     })),
   });
 
-  const result = await serachQuery;
-  // .populate("admissionSemester")
+  const result = await serachQuery.populate("user");
   // .populate({
   //   path: "academicDepartment",
   //   populate: {

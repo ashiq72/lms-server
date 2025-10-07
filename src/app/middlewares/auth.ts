@@ -28,12 +28,14 @@ const auth = (...requiredRoles: TuserRole[]) => {
           );
         }
 
-        // if (requiredRoles && !requiredRoles.includes(role)) {
-        //   throw new AppError(
-        //     httpStatus.UNAUTHORIZED,
-        //     "You are not authorized  hi!"
-        //   );
-        // }
+        const role = (decoded as JwtPayload).role;
+
+        if (requiredRoles && !requiredRoles.includes(role)) {
+          throw new AppError(
+            httpStatus.UNAUTHORIZED,
+            "You are not authorized  access!"
+          );
+        }
         // decoded
         req.user = decoded as JwtPayload;
         next();
