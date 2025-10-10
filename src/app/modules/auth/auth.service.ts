@@ -5,6 +5,7 @@ import { User } from "../user/user.model";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import config from "../../../config";
 import bcrypt from "bcrypt";
+import { createToken } from "./auth.utils";
 
 const loginUser = async (playload: TLoginUser) => {
   const user = await User.isUserExistsByCustomId(playload.id);
@@ -35,7 +36,9 @@ const loginUser = async (playload: TLoginUser) => {
     userId: user.id,
     role: user.role,
   };
-  const accessToken = jwt.sign(
+  const accessToken = createToken(jwtPayload, config.jwt_access_secret, "1d");
+
+  const refreshToken = jwt.sign(
     jwtPlayload,
     config.jwt_access_secret as string,
     {
