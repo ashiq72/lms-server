@@ -48,9 +48,21 @@ const refreshToken = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const forgetPassword = catchAsync(async (req, res) => {
+  const { id } = req.body;
+  // const result = await AuthServices.refreshToken(refreshToken);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Access token is retrieved succesfully",
+    data: null,
+  });
+});
 
 export const AuthControllers = {
   loginUser,
   refreshToken,
   changePassword,
+  forgetPassword,
 };
