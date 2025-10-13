@@ -187,7 +187,7 @@ const forgetPassword = async (userId: string) => {
   );
 
   const resetUiLink = `http://localhost:3000?id=${userId}&token=${resetToken}`;
-  sendEmail();
+  sendEmail(user.email, resetUiLink);
 };
 
 export const AuthServices = {

@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import config from "../config";
 
-export const sendEmail = async () => {
+export const sendEmail = async (to: string, html: string) => {
   // Create a test account or replace with real credentials.
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -16,7 +16,7 @@ export const sendEmail = async () => {
     from: '"Maddison Foo Koch" <mdashiquzzaman28@gmail.com>',
     to: "ahmedashik18k@gmail.com",
     subject: "Hello !",
-    text: "Hello ki khobor? Password bhule gecho?", // plain‑text body
+    text: "Reset your password within 10 minutes", // plain‑text body
     html: "<b>Hello world?</b>", // HTML body
   });
 };
