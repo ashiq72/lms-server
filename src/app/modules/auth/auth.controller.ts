@@ -49,7 +49,7 @@ const refreshToken = catchAsync(async (req, res) => {
   });
 });
 const forgetPassword = catchAsync(async (req, res) => {
-  const { id } = req.body;
+  const { userId } = req.body;
   // const result = await AuthServices.refreshToken(refreshToken);
 
   sendResponse(res, {
