@@ -1,3 +1,4 @@
+import { string } from "joi";
 import config from "../../../config";
 import catchAsync from "../../../utils/catchAsync";
 import sendResponse from "../../../utils/sendResponse";
@@ -61,13 +62,13 @@ const forgetPassword = catchAsync(async (req, res) => {
 });
 
 const resetPassword = catchAsync(async (req, res) => {
-  const { id } = req.body;
-  const result = await AuthServices.resetPassword(id);
+  const token = req.headers.authorization;
+  const result = await AuthServices.resetPassword(req.body, token as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Reset link generated is succesfully",
+    message: "Password reset is succesfully",
     data: result,
   });
 });

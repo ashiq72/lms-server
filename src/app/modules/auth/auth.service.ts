@@ -87,13 +87,12 @@ const changePassword = async (
     throw new AppError(httpStatus.FORBIDDEN, "Password do not match!");
 
   // hash new password
-
   const newHashedPassword = await bcrypt.hash(
     payload.newPassword,
     Number(config.bcrypt_salt_rounds)
   );
 
-  const result = await User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     {
       id: userData.userId,
       role: userData.role,
@@ -104,7 +103,7 @@ const changePassword = async (
       passwordChangeAt: new Date(),
     }
   );
-  return result;
+  return null;
 };
 const refreshToken = async (token: string) => {
   // checking if the varify token
@@ -189,8 +188,12 @@ const forgetPassword = async (userId: string) => {
   const resetUiLink = `${config.reset_pass_ui_link}?id=${userId}&token=${resetToken}`;
   sendEmail(user.email, resetUiLink);
 };
-const resetPassword = async (userId: string) => {
-  const user = await User.isUserExistsByCustomId(userId);
+
+const resetPassword = async (
+  payload: { id: string; newPassword: string },
+  token: string
+) => {
+  const user = await User.isUserExistsByCustomId(payload.id);
 
   // Checking if the user exist
   if (!user) {
@@ -209,19 +212,33 @@ const resetPassword = async (userId: string) => {
     throw new AppError(httpStatus.FORBIDDEN, "This user is block!");
   }
 
-  const jwtPayload = {
-    userId: user.id,
-    role: user.role,
-  };
+  // checking if the varify token
+  const decoded = jwt.verify(
+    token,
+    config.jwt_access_secret as string
+  ) as JwtPayload;
 
-  const resetToken = createToken(
-    jwtPayload,
-    config.jwt_access_secret as string,
-    "10m"
+  if (payload.id !== decoded.userId) {
+    throw new AppError(httpStatus.FORBIDDEN, "You are forbidden!");
+  }
+
+  // hash new password
+  const newHashedPassword = await bcrypt.hash(
+    payload.newPassword,
+    Number(config.bcrypt_salt_rounds)
   );
 
-  const resetUiLink = `${config.reset_pass_ui_link}?id=${userId}&token=${resetToken}`;
-  sendEmail(user.email, resetUiLink);
+  // Change password
+  await User.findOneAndUpdate(
+    {
+      id: decoded.userId,
+      role: decoded.role,
+    },
+    {
+      password: newHashedPassword,
+      passwordChangeAt: new Date(),
+    }
+  );
 };
 
 export const AuthServices = {
