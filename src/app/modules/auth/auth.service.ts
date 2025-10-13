@@ -6,6 +6,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import config from "../../../config";
 import bcrypt from "bcrypt";
 import { createToken } from "./auth.utils";
+import { sendEmail } from "../../../utils/sendEmail";
 
 const loginUser = async (playload: TLoginUser) => {
   const user = await User.isUserExistsByCustomId(playload.id);
@@ -186,6 +187,7 @@ const forgetPassword = async (userId: string) => {
   );
 
   const resetUiLink = `http://localhost:3000?id=${userId}&token=${resetToken}`;
+  sendEmail();
 };
 
 export const AuthServices = {
