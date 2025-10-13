@@ -3,6 +3,7 @@ import { USER_ROLL } from "./user.constant";
 
 export interface TUser {
   id: string;
+  email: string;
   password: string;
   needsPasswordChange: boolean;
   passwordChangeAt?: Date;
@@ -18,7 +19,6 @@ export type NewUser = {
 };
 
 export interface UserModel extends Model<TUser> {
-  // myStaticMethod(): number;
   isUserExistsByCustomId(id: string): Promise<TUser>;
   isPasswordMatched(
     plainTextPassword: string,
@@ -29,10 +29,6 @@ export interface UserModel extends Model<TUser> {
     passwordChangedTimestamp: Date,
     jwtIssuedTimestamp: number
   ): boolean;
-  // isJWTIssuedBeforePasswordChanged(
-  //   passwordChangedTimestamp: Date,
-  //   jwtIssuedTimestamp: number
-  // ): boolean;
 }
 
 export type TuserRole = keyof typeof USER_ROLL;
