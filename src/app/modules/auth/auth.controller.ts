@@ -50,13 +50,13 @@ const refreshToken = catchAsync(async (req, res) => {
 });
 const forgetPassword = catchAsync(async (req, res) => {
   const { userId } = req.body;
-  // const result = await AuthServices.refreshToken(refreshToken);
+  const result = await AuthServices.forgetPassword(userId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Access token is retrieved succesfully",
-    data: null,
+    message: "Password recovery succesfully",
+    data: result,
   });
 });
 
