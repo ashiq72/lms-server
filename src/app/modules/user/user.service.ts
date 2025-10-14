@@ -6,7 +6,7 @@ import { TUser } from "./user.interface";
 import { AcademicSemester } from "../academicSemester/academicSemister.model";
 import { Student } from "../student/student.model";
 import { User } from "./user.model";
-import { generateStudentId } from "./user.utils";
+import { generateStudentId, verifyToken } from "./user.utils";
 import AppError from "../../error/AppError";
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
@@ -66,6 +66,17 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
   }
 };
 
+const getMe = async (token: string) => {
+  const decoded = verifyToken(token, config.jwt_access_secret as string);
+
+  const { userId, role } = decoded;
+  console.log(userId, role);
+
+  // const result = await
+  return {};
+};
+
 export const UserServices = {
   createStudentIntoDB,
+  getMe,
 };

@@ -12,5 +12,10 @@ router.post(
   validateRequest(createStudentValidationSchema),
   UserController.createStudent
 );
+router.get(
+  "/me",
+  auth(USER_ROLL.admin, USER_ROLL.student),
+  UserController.getMe
+);
 
 export const UserRouter = router;
