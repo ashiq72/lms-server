@@ -8,6 +8,7 @@ import { Student } from "../student/student.model";
 import { User } from "./user.model";
 import { generateStudentId, verifyToken } from "./user.utils";
 import AppError from "../../error/AppError";
+import { sendImageToCloudinary } from "../../../utils/sendImageToCloudinary";
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // create a user object
@@ -46,9 +47,8 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     // set id , _id as user
     payload.id = newUser[0].id;
     payload.user = newUser[0]._id; //reference _id
-
+    sendImageToCloudinary();
     // create a student (transaction-2)
-
     const newStudent = await Student.create([payload], { session });
 
     if (!newStudent.length) {
