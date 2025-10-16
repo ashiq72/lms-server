@@ -10,7 +10,11 @@ import { generateStudentId, verifyToken } from "./user.utils";
 import AppError from "../../error/AppError";
 import { sendImageToCloudinary } from "../../../utils/sendImageToCloudinary";
 
-const createStudentIntoDB = async (password: string, payload: TStudent) => {
+const createStudentIntoDB = async (
+  file: any,
+  password: string,
+  payload: TStudent
+) => {
   // create a user object
   const userData: Partial<TUser> = {};
 
@@ -37,6 +41,12 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     }
     userData.id = await generateStudentId(admissionSemester);
 
+    const imageName = `${userData.id}${payload?.name?.firstName}`;
+    const path = file?.path;
+
+    // send image to cloudinary
+    const { secure_url } = await sendImageToCloudinary(imageName, path);
+
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session }); // array
 
@@ -44,10 +54,12 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     if (!newUser.length) {
       throw new AppError(httpStatus.BAD_REQUEST, "Failed to create user");
     }
+
     // set id , _id as user
     payload.id = newUser[0].id;
-    payload.user = newUser[0]._id; //reference _id
-    sendImageToCloudinary();
+    payload.user = newUser[0]._id;
+    payload.profileImg = secure_url;
+
     // create a student (transaction-2)
     const newStudent = await Student.create([payload], { session });
 
