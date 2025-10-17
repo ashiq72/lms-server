@@ -21,7 +21,7 @@ const Months: TMonths[] = [
   "December",
 ];
 
-const Names: TNames[] = ["Autumn", "Summar", "Fall"];
+const Names: TNames[] = ["Autumn", "Summer", "Fall"];
 const Codes: TCodes[] = ["01", "02", "03"];
 
 const academicSemesterSchema = new Schema<TAcademicSemester>(
