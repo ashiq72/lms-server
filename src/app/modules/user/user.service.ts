@@ -6,7 +6,7 @@ import { TUser } from "./user.interface";
 import { AcademicSemester } from "../academicSemester/academicSemister.model";
 import { Student } from "../student/student.model";
 import { User } from "./user.model";
-import { generateStudentId, verifyToken } from "./user.utils";
+import { generateStudentId } from "./user.utils";
 import AppError from "../../error/AppError";
 import { sendImageToCloudinary } from "../../../utils/sendImageToCloudinary";
 
