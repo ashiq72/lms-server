@@ -5,7 +5,7 @@ import AppError from "../../error/AppError";
 import { User } from "../user/user.model";
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
-  console.log(query);
+  const queryObj = { ...query };
 
   let searchterm = "";
   const studentSearchAbleFields = ["email", "name.firstName"];
@@ -19,7 +19,10 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     })),
   });
 
-  const result = await serachQuery.populate("user");
+  const excludeFields = ["searchTerm"];
+  excludeFields.forEach((el) => delete queryObj[el]);
+
+  const result = await serachQuery.find(query);
   // .populate({
   //   path: "academicDepartment",
   //   populate: {
