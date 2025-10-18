@@ -19,17 +19,43 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     })),
   });
 
-  const excludeFields = ["searchTerm"];
+  const excludeFields = ["searchTerm", "sort", "page", "limit", "fields"];
   excludeFields.forEach((el) => delete queryObj[el]);
-
-  const result = await serachQuery.find(query);
+  console.log({ query }, { queryObj });
+  const filterQuery = serachQuery.find(queryObj);
   // .populate({
   //   path: "academicDepartment",
   //   populate: {
   //     path: "academicFaculty",
   //   },
   // });
-  return result;
+
+  let sort = "-createdAt";
+
+  if (query.sort) {
+    sort = query.sort as string;
+  }
+
+  const sortQuery = filterQuery.sort(sort);
+
+  let page = 1;
+  let limit = 1;
+  let skip = 0;
+  if (query.limit) {
+    limit = Number(query.limit);
+  }
+
+  if (query.page) {
+    page = Number(query.page);
+    skip = (page - 1) * limit;
+  }
+
+  const paginateQuery = sortQuery.skip(skip);
+  console.log(skip);
+
+  const limitQuery = await paginateQuery.limit(limit);
+
+  return limitQuery;
 };
 
 const getSingleStudentFromDB = async (studentId: String) => {
