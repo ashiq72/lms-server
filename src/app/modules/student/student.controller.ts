@@ -4,10 +4,6 @@ import { StudentServices } from "./student.service";
 import httpStatus from "http-status";
 
 const getAllStudents = catchAsync(async (req, res) => {
-  const { role } = req.user;
-
-  console.log(req.cookies);
-
   const result = await StudentServices.getAllStudentsFromDB(req.query);
 
   sendResponse(res, {

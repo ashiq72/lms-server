@@ -5,14 +5,16 @@ import AppError from "../../error/AppError";
 import { User } from "../user/user.model";
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+  console.log(query);
+
   let searchterm = "";
-  const studentSearchAbleField = ["email", "name.firstName"];
+  const studentSearchAbleFields = ["email", "name.firstName"];
   if (query.searchterm) {
     searchterm = query?.searchterm as string;
   }
 
   const serachQuery = Student.find({
-    $or: studentSearchAbleField.map((field) => ({
+    $or: studentSearchAbleFields.map((field) => ({
       [field]: { $regex: searchterm, $options: "i" },
     })),
   });
